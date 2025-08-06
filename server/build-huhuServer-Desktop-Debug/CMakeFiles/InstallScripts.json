@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

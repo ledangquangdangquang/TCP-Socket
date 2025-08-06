@@ -1,0 +1,9 @@
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/huhuServer.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/edit_cache.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/rebuild_cache.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/list_install_components.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/install.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/install/local.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/install/strip.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/huhuServer_autogen_timestamp_deps.dir
+/home/quang/test/huhuServer/build-huhuServer-Desktop-Debug/CMakeFiles/huhuServer_autogen.dir
