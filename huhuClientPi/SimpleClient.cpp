@@ -1,8 +1,9 @@
 #include "SimpleClient.h"
 #include <QDebug>
-#include <iostream>
+//#include <iostream>
 #include <QTextStream>
-#include <unistd.h> // 👈 để dùng STDIN_FILENO
+//#include <unistd.h> // 👈 để dùng STDIN_FILENO
+
 
 SimpleClient::SimpleClient(QObject *parent) : QObject(parent) {
     connect(&socket, &QTcpSocket::connected, this, &SimpleClient::onConnected);
@@ -22,7 +23,8 @@ void SimpleClient::sendMessage(const QByteArray &msg) {
 void SimpleClient::onConnected() {
     qDebug() << "Đã kết nối server";
     // Gắn stdin vào notifier để đọc lệnh chat
-    stdinNotifier = new QSocketNotifier(STDIN_FILENO, QSocketNotifier::Read, this);
+    stdinNotifier = new QSocketNotifier(0, QSocketNotifier::Read, this);
+//    stdinNotifier = new QSocketNotifier(STDIN_FILENO, QSocketNotifier::Read, this);
     connect(stdinNotifier, &QSocketNotifier::activated, this, &SimpleClient::onUserInput);
 }
 void SimpleClient::onUserInput() {

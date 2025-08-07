@@ -20,5 +20,6 @@ target_link_libraries(huhuClient
     Qt6::Core
     Qt6::Network
 )
+
 install(TARGETS huhuClient
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

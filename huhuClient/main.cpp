@@ -6,11 +6,10 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    qDebug() << "--- CLIENT RASPBERRY PI ---";
+    qDebug() << "--- CLIENT ---";
     SimpleClient client;
-    client.connectToServer("192.168.30.111", 1234);
-    QTimer::singleShot(1000, &a, [&client]() {
-        client.sendMessage("Hello server!");
-    });
+    client.connectToServer("127.0.0.1", 12345);
+
+
     return a.exec();
 }

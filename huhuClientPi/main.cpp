@@ -6,9 +6,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    qDebug() << "--- CLIENT ---";
+    qDebug() << "--- CLIENT RASPBERRY PI ---";
     SimpleClient client;
-    client.connectToServer("127.0.0.1", 1234);
+    client.connectToServer("192.168.30.77", 12345);
     QTimer::singleShot(1000, &a, [&client]() {
         client.sendMessage("Hello server!");
     });
