@@ -1,5 +1,6 @@
 #include "ClientHandler.h"
 #include <QDebug>
+#include <QFile>
 
 /*
     Hàm khởi tạo `ClientHandler` nhận `socketDescriptor` và
@@ -47,9 +48,70 @@ void ClientHandler::start() {
     rồi phát tín hiệu `messageReceived` kèm dữ liệu (chuyển sang `QString`)
     và con trỏ đến chính `ClientHandler`.
 */
-void ClientHandler::onReadyRead() {
-    QByteArray data = m_socket->readAll();
-    emit messageReceived(QString::fromUtf8(data), this);
+// void ClientHandler::onReadyRead() {
+    // QByteArray data = m_socket->readAll();
+    // // qDebug() << "[DEBUG] Client gửi:" << data; // test trực tiếp
+    // emit messageReceived(QString::fromUtf8(data), this);
+// }
+enum class ReceiveMode { Text, File };
+
+ReceiveMode mode = ReceiveMode::Text;
+QString pendingFileName;
+qint64 pendingFileSize = 0;
+qint64 receivedBytes = 0;
+QFile pendingFile;
+void ClientHandler::onReadyRead()
+{
+    QTcpSocket *clientSocket = qobject_cast<QTcpSocket*>(sender());
+    if (!clientSocket) return;
+
+    static QMap<QTcpSocket*, qint64> remainingBytes;
+    static QMap<QTcpSocket*, QFile*> fileMap;
+
+    while (clientSocket->bytesAvailable() > 0) {
+        // Nếu đang nhận file
+        if (remainingBytes.contains(clientSocket) && remainingBytes[clientSocket] > 0) {
+            QFile *file = fileMap[clientSocket];
+            QByteArray data = clientSocket->read(qMin(remainingBytes[clientSocket], (qint64)4096));
+            file->write(data);
+            remainingBytes[clientSocket] -= data.size();
+
+            if (remainingBytes[clientSocket] <= 0) {
+                file->close();
+                delete file;
+                fileMap.remove(clientSocket);
+                remainingBytes.remove(clientSocket);
+                qDebug() << "✅ File nhận xong!";
+            }
+            continue;
+        }
+
+        // Nếu chưa ở chế độ nhận file → đọc tin nhắn
+        QByteArray message = clientSocket->readLine().trimmed();
+
+        if (message.startsWith("FILE:")) {
+            // Định dạng: FILE:<tên_file>:<size>
+            QList<QByteArray> parts = message.split(':');
+            if (parts.size() == 3) {
+                QString fileName = parts[1];
+                qint64 fileSize = parts[2].toLongLong();
+
+                QFile *file = new QFile(fileName);
+                if (!file->open(QIODevice::WriteOnly)) {
+                    qDebug() << "❌ Không thể mở file để ghi:" << fileName;
+                        delete file;
+                    continue;
+                }
+
+                fileMap[clientSocket] = file;
+                remainingBytes[clientSocket] = fileSize;
+                qDebug() << "📂 Bắt đầu nhận file:" << fileName << "(" << fileSize << "bytes )";
+            }
+        } else {
+            // Tin nhắn thường
+            qDebug() << "💬 Tin từ client:" << message;
+        }
+    }
 }
 
 /*

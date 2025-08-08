@@ -1,0 +1,3 @@
+2025-08-08 11:37 [DEBUG] /home/quang/test/huhuClient/main.cpp:13 int main(int, char**) - --- CLIENT ---
+2025-08-08 11:37 [DEBUG] /home/quang/test/huhuClient/main.cpp:14 int main(int, char**) - pwd: "/home/quang/test/huhuClient/build-huhuClient-Desktop-Debug"
+2025-08-08 11:37 [DEBUG] /home/quang/test/huhuClient/SimpleClient.cpp:65 void SimpleClient::onConnected() - Đã kết nối server

@@ -13,6 +13,7 @@ find_package(Qt6 COMPONENTS Core Network REQUIRED)  # hoặc Qt5 nếu bạn dù
 
 add_executable(huhuClient
   main.cpp
+  README.md
   SimpleClient.h SimpleClient.cpp
 )
 # Link thư viện Qt

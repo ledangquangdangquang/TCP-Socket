@@ -3,14 +3,18 @@
 #include "SimpleClient.h"
 #include <QTimer>
 #include <QDebug>
+#include <QDir>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+    SimpleClient::setupLogging();
+
     qDebug() << "--- CLIENT RASPBERRY PI ---";
+    qDebug() << "pwd:" << QDir::currentPath();
+
     SimpleClient client;
     client.connectToServer("192.168.30.77", 12345);
-    QTimer::singleShot(1000, &a, [&client]() {
-        client.sendMessage("Hello server!");
-    });
+
     return a.exec();
 }

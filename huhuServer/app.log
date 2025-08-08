@@ -1,0 +1,6 @@
+2025-08-08 11:36 [DEBUG] /home/quang/test/huhuServer/main.cpp:13 int main(int, char**) - --- SERVER ---
+2025-08-08 11:36 [INFO] /home/quang/test/huhuServer/SimpleServer.cpp:13 SimpleServer::SimpleServer(QObject*) - Server đang chạy tại cổng 12345...
+2025-08-08 11:37 [DEBUG] /home/quang/test/huhuServer/ClientHandler.cpp:112 void ClientHandler::onReadyRead() - 💬 Tin từ client: "Hello server!"
+2025-08-08 11:37 [DEBUG] /home/quang/test/huhuServer/ClientHandler.cpp:112 void ClientHandler::onReadyRead() - 💬 Tin từ client: "Hello server!"
+2025-08-08 11:38 [DEBUG] /home/quang/test/huhuServer/main.cpp:13 int main(int, char**) - --- SERVER ---
+2025-08-08 11:38 [FATAL] /home/quang/test/huhuServer/SimpleServer.cpp:15 SimpleServer::SimpleServer(QObject*) - Không thể lắng nghe trên cổng 12345
